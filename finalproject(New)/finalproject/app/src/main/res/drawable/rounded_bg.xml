@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="50dp" />   <!-- roundness -->
+    <solid android:color="#6C63FF" />   <!-- default color (will override in adapter if needed) -->
+
+</shape>

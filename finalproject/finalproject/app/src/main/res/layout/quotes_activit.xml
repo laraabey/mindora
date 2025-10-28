@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_general">
+
+    <!-- Back Arrow -->
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/back"
+        android:padding="4dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#1D1D42" />
+
+    <!-- Top bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIconTint="#1D1D42"
+        app:title="Mindful Quotes"
+        android:layout_marginTop="10dp"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+        app:titleTextColor="#1D1D42" />
+
+    <!-- Loading Spinner -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <!-- Quote Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardQuote"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#E3F2FD"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/quickActions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:strokeColor="#80BBDEFB"
+        app:strokeWidth="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <!-- Decorative opening quote -->
+            <TextView
+                android:id="@+id/decorOpen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.08"
+                android:text="&quot;"
+                android:textColor="#1D1D42"
+                android:textSize="72sp"
+                android:textStyle="bold"
+                android:translationY="-8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Quote Icon (optional) -->
+            <ImageView
+                android:id="@+id/quoteIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:alpha="0.3"
+                android:contentDescription="@string/quote_icon"
+                android:src="@android:drawable/ic_menu_info_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#6B4EE6" />
+
+            <!-- Scroll area for long quotes -->
+            <ScrollView
+                android:id="@+id/scrollQuote"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="8dp"
+                android:fadingEdgeLength="16dp"
+                android:requiresFadingEdge="vertical"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toTopOf="@id/tvAuthor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <TextView
+                    android:id="@+id/tvQuote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/loading"
+                    android:textColor="#1D1D42"
+                    android:textSize="20sp"
+                    tools:text="It's okay not to be okay. Healing isn't linear—take it one gentle step at a time." />
+            </ScrollView>
+
+            <!-- Author -->
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:text="@string/author_placeholder"
+                android:textColor="#424242"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/chips"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="— Unknown" />
+
+            <!-- Tags ChipGroup -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:singleLine="true" />
+
+            <!-- Decorative closing quote -->
+            <TextView
+                android:id="@+id/decorClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.08"
+                android:text="&quot;"
+                android:textColor="#1D1D42"
+                android:textSize="72sp"
+                android:textStyle="bold"
+                android:translationY="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Quick actions -->
+    <LinearLayout
+        android:id="@+id/quickActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/controls"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShare"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/share_quote"
+            android:text="@string/share"
+            android:textColor="#1D1D42"
+            android:textSize="14sp"
+            app:backgroundTint="#90CAF9"
+            app:icon="@android:drawable/ic_menu_share"
+            app:iconTint="#1D1D42"
+            app:iconSize="18dp" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCopy"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/copy_quote"
+            android:text="@string/copy"
+            android:textColor="#1D1D42"
+            android:textSize="14sp"
+            app:strokeColor="#1D1D42"
+            app:strokeWidth="2dp"
+            app:icon="@android:drawable/ic_menu_save"
+            app:iconTint="#1D1D42"
+            app:iconSize="18dp" />
+    </LinearLayout>
+
+    <!-- Bottom controls -->
+    <LinearLayout
+        android:id="@+id/controls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrev"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/previous_quote"
+            android:text="@string/previous"
+            android:textColor="#1D1D42"
+            android:textSize="13sp"
+            app:strokeColor="#1D1D42"
+            app:strokeWidth="2dp"
+            app:icon="@android:drawable/ic_media_previous"
+            app:iconTint="#1D1D42"
+            app:iconGravity="start"
+            app:iconSize="16dp" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShuffle"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/shuffle_quote"
+            android:text="@string/shuffle"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            app:backgroundTint="#6B4EE6"
+            app:icon="@android:drawable/ic_menu_rotate"
+            app:iconTint="#FFFFFF"
+            app:iconGravity="textStart"
+            app:iconSize="16dp" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/next_quote"
+            android:text="@string/next"
+            android:textColor="#1D1D42"
+            android:textSize="13sp"
+            app:strokeColor="#1D1D42"
+            app:strokeWidth="2dp"
+            app:icon="@android:drawable/ic_media_next"
+            app:iconTint="#1D1D42"
+            app:iconGravity="end"
+            app:iconSize="16dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

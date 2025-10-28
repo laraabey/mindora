@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">final-project</string>
+
+    <!-- quotes strings -->
+    <string name="back">Back</string>
+    <string name="quote_icon">Quote icon</string>
+    <string name="loading">Loading…</string>
+    <string name="author_placeholder">—</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="previous">Previous</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="next">Next</string>
+    <string name="share_quote">Share quote</string>
+    <string name="copy_quote">Copy quote</string>
+    <string name="previous_quote">Show previous quote</string>
+    <string name="shuffle_quote">Show a random quote</string>
+    <string name="next_quote">Show next quote</string>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFF3E0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Play Icon -->
+        <ImageView
+            android:id="@+id/ivPlayIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_play_circle"
+            android:contentDescription="Play"
+            app:tint="#6B4EE6"/>
+
+        <!-- Music Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/tvAudioName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Music Name"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/tvAudioCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre"
+                android:textSize="14sp"
+                android:textColor="#6B4EE6"
+                android:layout_marginTop="4dp"
+                android:padding="4dp"
+                android:background="@drawable/category_badge"/>
+        </LinearLayout>
+
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/tvAudioDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:45"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

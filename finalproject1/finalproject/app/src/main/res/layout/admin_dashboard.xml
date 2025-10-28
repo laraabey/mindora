@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg_general">
+
+    <!-- Scrollable buttons -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnLogout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Dashboard Heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Admin Dashboard"
+                android:fontFamily="@font/playfairdisplayregular"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#2A194D"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Quotes & Music Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:text="Upload Quote"
+                    android:textColor="#4A3620"
+                    android:backgroundTint="#DDBBA7"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="btnquotes"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:text="Upload Music"
+                    android:textColor="#2E4D26"
+                    android:backgroundTint="#8CB584"
+                    android:textSize="20sp"
+                    android:layout_marginStart="8dp"
+                    android:onClick="btnmusic"/>
+            </LinearLayout>
+
+            <!-- Audio & Video Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:text="Upload Audio"
+                    android:textColor="#3E2859"
+                    android:backgroundTint="#968FDA"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="btnaudio"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:text="Upload Video"
+                    android:textColor="#323565"
+                    android:backgroundTint="#8195D8"
+                    android:textSize="20sp"
+                    android:layout_marginStart="8dp"
+                    android:onClick="btnvideo"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Logout button anchored at bottom -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Logout"
+        android:textColor="#320505"
+        android:backgroundTint="#FDB0B0"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

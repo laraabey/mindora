@@ -76,10 +76,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Comment"
+                android:background="@drawable/rounded_button"
                 android:minHeight="0dp"
                 android:padding="8dp"
                 android:contentDescription="Comment"
-                android:layout_marginLeft="250dp"/>
+                android:layout_marginLeft="250dp"
+                app:backgroundTint="@null"
+                app:rippleColor="@android:color/transparent"
+                android:elevation="2dp"
+                android:textColor="#3B1363"
+                android:textAllCaps="false"/>
 
 
         </LinearLayout>

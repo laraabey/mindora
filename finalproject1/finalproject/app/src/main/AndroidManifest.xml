@@ -35,7 +35,7 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".PrivacyActivity" />
         <activity android:name=".AdminDashboardActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".HomeMainActivity" />
 <!--        <activity android:name=".LoginActivity" />-->
         <activity android:name=".JournalDetailActivity" />
         <activity android:name=".AddJournalActivity" />
@@ -57,6 +57,7 @@
         <activity android:name=".CommunityActivity" />
         <activity android:name=".CommentsActivity" />
         <activity android:name=".AdminAddMusicActivity" />
+        <activity android:name=".MusicMainActivity" />
 
 
 

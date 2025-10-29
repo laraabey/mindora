@@ -112,17 +112,6 @@
                 </LinearLayout>
 
 
-                <Button
-                    android:id="@+id/callEmergencyBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:backgroundTint="@color/crisis_button"
-                    android:elevation="4dp"
-                    android:text="📞 Call Now (Emergency)"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Crisis Mode Section -->
@@ -179,7 +168,7 @@
                     android:background="@drawable/button_outline"
                     app:backgroundTint="@null"
                     app:rippleColor="@android:color/transparent"
-                    android:elevation="10dp"
+                    android:elevation="2dp"
                     android:textColor="#3B1363"
                     android:textAllCaps="false"
                     android:layout_marginBottom="8dp"
@@ -193,7 +182,7 @@
                     android:background="@drawable/button_outline"
                     app:backgroundTint="@null"
                     app:rippleColor="@android:color/transparent"
-                    android:elevation="0dp"
+                    android:elevation="2dp"
                     android:textColor="#3B1363"
                     android:textAllCaps="false"
                     android:layout_marginBottom="8dp"
@@ -207,7 +196,7 @@
                     android:background="@drawable/button_outline"
                     app:backgroundTint="@null"
                     app:rippleColor="@android:color/transparent"
-                    android:elevation="0dp"
+                    android:elevation="2dp"
                     android:textColor="#3B1363"
                     android:textAllCaps="false"
                     android:layout_marginBottom="8dp"

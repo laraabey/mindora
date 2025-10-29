@@ -143,7 +143,59 @@ public class ProfileActivity extends AppCompatActivity {
     public void navcommunity(View view) { startActivity(new Intent(this, CommunityActivity.class)); }
     public void navjournal(View view) { startActivity(new Intent(this, JournalMainActivity.class)); }
     public void navprofile(View view) { /* Already here */ }
-    public void editprofile(View view) { startActivity(new Intent(this, EditProfile.class)); }
+    public void editprofile(View view) {
+        ViewGroup rootView = findViewById(android.R.id.content);
+        View blurView = new View(this);
+        blurView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Add blur effect
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            blurView.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(
+                    20f, 20f, android.graphics.Shader.TileMode.CLAMP));
+            blurView.setBackgroundColor(0x55FFFFFF);
+        } else {
+            blurView.setBackgroundColor(0xAA000000);
+        }
+        rootView.addView(blurView);
+
+        // Inflate edit profile popup
+        View popupView = getLayoutInflater().inflate(R.layout.edit_profile, null);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setView(popupView);
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+
+        // Initialize fields
+        EditText editName = popupView.findViewById(R.id.editName);
+        EditText editEmail = popupView.findViewById(R.id.editEmail);
+        Button btnSave = popupView.findViewById(R.id.btnSave);
+        Button btnCancel = popupView.findViewById(R.id.btnCancel);
+
+        // Load existing profile info
+        SharedPreferences prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
+        editName.setText(prefs.getString("name", ""));
+        editEmail.setText(prefs.getString("email", ""));
+
+        // Save button
+        btnSave.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("name", editName.getText().toString());
+            editor.putString("email", editEmail.getText().toString());
+            editor.apply();
+            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            rootView.removeView(blurView);
+        });
+
+        // Cancel button
+        btnCancel.setOnClickListener(v -> {
+            dialog.dismiss();
+            rootView.removeView(blurView);
+        });
+    }
 
     // ==================== LOGOUT ====================
     private void showLogoutPopup() {
@@ -189,5 +241,28 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    // ==================== CRISIS CALLS ====================
+    public void callMentalHealth(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1926"));
+        startActivity(intent);
+    }
+
+
+    public void callAmbulance(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1990"));
+        startActivity(intent);
+    }
+
+    public void callCCCline(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1333"));
+        startActivity(intent);
+    }
+
+    public void callSumithrayo(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0112682535"));
+        startActivity(intent);
+    }
+
 }
 

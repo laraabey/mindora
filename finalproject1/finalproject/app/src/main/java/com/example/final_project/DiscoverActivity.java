@@ -63,4 +63,20 @@ public class DiscoverActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    public void openBreathingVideo(android.view.View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://youtu.be/395ZloN4Rr8?si=F7HT1mWOc6BJtMm_"));
+        startActivity(intent);
+    }
+
+    public void open54321Video(android.view.View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://youtu.be/30VMIEmA114?si=RAtq2o40CWnEuY_o"));
+        startActivity(intent);
+    }
+
+    public void openMuscleVideo(android.view.View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://youtu.be/30VMIEmA114?si=RAtq2o40CWnEuY_o"));
+        startActivity(intent);
+    }
+
+
 }

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_general"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_general">
 
     <!-- Main Content ScrollView -->
     <ScrollView
@@ -164,22 +164,70 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Instant access to crisis support and safety features"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="20dp" />
+                    android:text="Crisis Support Numbers"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Hotlines -->
+                <Button
+                    android:id="@+id/btnMentalHealth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="National Mental Health Helpline"
+                    android:background="@drawable/button_outline"
+                    app:backgroundTint="@null"
+                    app:rippleColor="@android:color/transparent"
+                    android:elevation="10dp"
+                    android:textColor="#3B1363"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="8dp"
+                    android:onClick="callMentalHealth" />
 
                 <Button
-                    android:id="@+id/crisisModeBtn"
+                    android:id="@+id/btnAmbulance"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:backgroundTint="@color/crisis_button"
-                    android:elevation="2dp"
-                    android:text="🆘 Activate Crisis Mode"
+                    android:layout_height="wrap_content"
+                    android:text="Ambulance – (Suwasariya)"
+                    android:background="@drawable/button_outline"
+                    app:backgroundTint="@null"
+                    app:rippleColor="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="#3B1363"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="8dp"
+                    android:onClick="callAmbulance" />
+
+                <Button
+                    android:id="@+id/btnCCCline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CCCline (Emotional Support)"
+                    android:background="@drawable/button_outline"
+                    app:backgroundTint="@null"
+                    app:rippleColor="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="#3B1363"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="8dp"
+                    android:onClick="callCCCline" />
+
+                <Button
+                    android:id="@+id/btnSumithrayo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sumithrayo Counselling"
+                    android:background="@drawable/button_outline"
+                    app:backgroundTint="@null"
+                    app:rippleColor="@android:color/transparent"
+                    android:elevation="2dp"
+                    android:textColor="#3B1363"
+                    android:textAllCaps="false"
+                    android:onClick="callSumithrayo"
+                    />
+
+
             </LinearLayout>
 
             <!-- Additional Profile Options -->

@@ -25,7 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DiscoverActivity" />
+        <activity
+            android:name=".DiscoverActivity"
+            android:launchMode="singleTop" />
+
         <activity android:name=".ProfileActivity" />
         <activity android:name=".JournalMainActivity" />
         <activity android:name=".AiChatActivity" />
@@ -44,7 +47,8 @@
         <activity android:name=".ViewJournalActivity"
             android:exported="false"/>
         <activity android:name=".VideoMainActivity" />
-        <activity android:name=".VideoDetailActivity" />
+        <activity android:name=".VideoDetailActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".AdminAddVideoActivity" />
         <activity android:name=".QuotesMainActivity" />
         <activity android:name=".AdminAddQuoteActivity" />
@@ -53,6 +57,7 @@
         <activity android:name=".CommunityActivity" />
         <activity android:name=".CommentsActivity" />
         <activity android:name=".AdminAddMusicActivity" />
+
 
 
     </application>

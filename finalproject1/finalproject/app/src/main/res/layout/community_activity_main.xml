@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#E9EEF6"
+    android:background="@drawable/bg_general"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:text="Community"
-        android:textSize="22sp"
+        android:fontFamily="@font/playfairdisplayregular"
+        android:textSize="27sp"
         android:textStyle="bold"
         android:textColor="#1D1D42"
         android:layout_centerHorizontal="true"

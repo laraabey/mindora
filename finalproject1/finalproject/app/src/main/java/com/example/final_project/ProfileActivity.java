@@ -14,7 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -28,14 +32,42 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
 
+        TextView userNameText = findViewById(R.id.userName);
+        SharedPreferences sharedPreferences = getSharedPreferences("MindoraPrefs", MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", null);
+        String username = sharedPreferences.getString("username", null);
+
+        if (name != null && !name.isEmpty()) {
+            userNameText.setText(name);
+        } else if (username != null && !username.isEmpty()) {
+            userNameText.setText(username);
+        } else {
+            userNameText.setText("Your Name");
+        }
+
         contactListLayout = findViewById(R.id.contactListLayout);
         preferences = getSharedPreferences("EmergencyContacts", MODE_PRIVATE);
-
         loadContacts();
 
-        // logout button
         Button logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(v -> showLogoutPopup());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView userNameText = findViewById(R.id.userName);
+        SharedPreferences sharedPreferences = getSharedPreferences("MindoraPrefs", MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", null);
+        String username = sharedPreferences.getString("username", null);
+
+        if (name != null && !name.isEmpty()) {
+            userNameText.setText(name);
+        } else if (username != null && !username.isEmpty()) {
+            userNameText.setText(username);
+        } else {
+            userNameText.setText("Your Name");
+        }
     }
 
     // ==================== EMERGENCY CONTACTS ====================
@@ -103,7 +135,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button deleteButton = new Button(this);
         deleteButton.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2));
-        deleteButton.setText("🗑️");
+        deleteButton.setText("🗑");
         deleteButton.setOnClickListener(v -> confirmDeleteContact(name, number, itemLayout));
 
         itemLayout.addView(nameText);
@@ -136,61 +168,86 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(this, PrivacyActivity.class));
     }
 
-
     // ==================== NAVIGATION ====================
     public void navhome(View view) { startActivity(new Intent(this, MainActivity.class)); }
     public void navdiscover(View view) { startActivity(new Intent(this, DiscoverActivity.class)); }
     public void navcommunity(View view) { startActivity(new Intent(this, CommunityActivity.class)); }
     public void navjournal(View view) { startActivity(new Intent(this, JournalMainActivity.class)); }
     public void navprofile(View view) { /* Already here */ }
+
+    // ==================== EDIT PROFILE POPUP ====================
     public void editprofile(View view) {
         ViewGroup rootView = findViewById(android.R.id.content);
         View blurView = new View(this);
-        blurView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-
-        // Add blur effect
+        blurView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            blurView.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(
-                    20f, 20f, android.graphics.Shader.TileMode.CLAMP));
+            blurView.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(20f, 20f, android.graphics.Shader.TileMode.CLAMP));
             blurView.setBackgroundColor(0x55FFFFFF);
         } else {
             blurView.setBackgroundColor(0xAA000000);
         }
         rootView.addView(blurView);
 
-        // Inflate edit profile popup
         View popupView = getLayoutInflater().inflate(R.layout.edit_profile, null);
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(popupView);
-        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
 
-        // Initialize fields
         EditText editName = popupView.findViewById(R.id.editName);
+        EditText editUsername = popupView.findViewById(R.id.editUsername);
         EditText editEmail = popupView.findViewById(R.id.editEmail);
         Button btnSave = popupView.findViewById(R.id.btnSave);
         Button btnCancel = popupView.findViewById(R.id.btnCancel);
 
-        // Load existing profile info
-        SharedPreferences prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("MindoraPrefs", MODE_PRIVATE);
+        String userDocId = prefs.getString("userId", "");
         editName.setText(prefs.getString("name", ""));
+        editUsername.setText(prefs.getString("username", ""));
         editEmail.setText(prefs.getString("email", ""));
 
-        // Save button
         btnSave.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("name", editName.getText().toString());
-            editor.putString("email", editEmail.getText().toString());
-            editor.apply();
-            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-            rootView.removeView(blurView);
+            String newName = editName.getText().toString().trim();
+            String newUsername = editUsername.getText().toString().trim();
+            String newEmail = editEmail.getText().toString().trim();
+
+            if (newName.isEmpty() || newUsername.isEmpty() || newEmail.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (userDocId.isEmpty()) {
+                Toast.makeText(this, "User ID missing. Please log in again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference userRef = db.collection("users").document(userDocId);
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("name", newName);
+            updates.put("username", newUsername);
+            updates.put("email", newEmail);
+
+            userRef.update(updates)
+                    .addOnSuccessListener(aVoid -> {
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("name", newName);
+                        editor.putString("username", newUsername);
+                        editor.putString("email", newEmail);
+                        editor.apply();
+
+                        TextView userNameText = findViewById(R.id.userName);
+                        if (!newName.isEmpty()) userNameText.setText(newName);
+                        else if (!newUsername.isEmpty()) userNameText.setText(newUsername);
+
+                        Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        rootView.removeView(blurView);
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         });
 
-        // Cancel button
         btnCancel.setOnClickListener(v -> {
             dialog.dismiss();
             rootView.removeView(blurView);
@@ -201,13 +258,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void showLogoutPopup() {
         ViewGroup rootView = findViewById(android.R.id.content);
         View blurView = new View(this);
-        blurView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-
+        blurView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            blurView.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(
-                    20f, 20f, android.graphics.Shader.TileMode.CLAMP));
+            blurView.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(20f, 20f, android.graphics.Shader.TileMode.CLAMP));
             blurView.setBackgroundColor(0x55FFFFFF);
         } else {
             blurView.setBackgroundColor(0xAA000000);
@@ -224,45 +277,24 @@ public class ProfileActivity extends AppCompatActivity {
         Button btnNo = popupView.findViewById(R.id.btnNo);
         Button btnYes = popupView.findViewById(R.id.btnYes);
 
-        // "No" -> Stay on profile (just close popup)
         btnNo.setOnClickListener(v -> {
             dialog.dismiss();
             rootView.removeView(blurView);
         });
 
-        // "Yes" -> Go to LoginActivity
         btnYes.setOnClickListener(v -> {
             dialog.dismiss();
             rootView.removeView(blurView);
 
             Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            // clear all previous activities so the user can't go back with the back button
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
     }
 
     // ==================== CRISIS CALLS ====================
-    public void callMentalHealth(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1926"));
-        startActivity(intent);
-    }
-
-
-    public void callAmbulance(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1990"));
-        startActivity(intent);
-    }
-
-    public void callCCCline(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1333"));
-        startActivity(intent);
-    }
-
-    public void callSumithrayo(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0112682535"));
-        startActivity(intent);
-    }
-
+    public void callMentalHealth(View view) { startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1926"))); }
+    public void callAmbulance(View view) { startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1990"))); }
+    public void callCCCline(View view) { startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1333"))); }
+    public void callSumithrayo(View view) { startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0112682535"))); }
 }
-

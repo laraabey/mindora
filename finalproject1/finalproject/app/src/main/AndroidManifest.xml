@@ -58,7 +58,8 @@
         <activity android:name=".CommentsActivity" />
         <activity android:name=".AdminAddMusicActivity" />
         <activity android:name=".MusicMainActivity" />
-
+        <activity android:name=".MoodBoardActivity"
+            android:exported="false"/>
 
 
     </application>

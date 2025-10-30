@@ -1,324 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_general"
     android:padding="16dp">
 
-    <!-- Scrollable Main Content -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigation"
         android:paddingBottom="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
 
-            <!-- Daily Reflection Card -->
-            <androidx.cardview.widget.CardView
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:src="@android:drawable/ic_menu_more" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_preferences"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <!-- Daily Reflection Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/card_background">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/card_background">
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily reflection"
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/tvHelloUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello, Max 🌷"
+                    android:textSize="24sp"
+                    android:textColor="#2C2C2C"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="How do you feel about your current emotions?"
+                    android:textSize="24sp"
+                    android:textColor="#2C2C2C"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:orientation="horizontal"
+                    android:background="@color/reflection_input_bg"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:onClick="aichat">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Daily reflection"
-                        android:textSize="12sp"
+                        android:layout_weight="1"
+                        android:text="Your reflection..."
+                        android:textSize="14sp"
                         android:textColor="#888888"
-                        android:layout_marginBottom="8dp" />
+                        />
 
-                    <TextView
-                        android:id="@+id/tvHelloUser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello, Max 🌷"
-                        android:textSize="24sp"
-                        android:textColor="#2C2C2C"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="4dp" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_send"
+                        android:rotation="45" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="How do you feel about your current emotions?"
-                        android:textSize="24sp"
-                        android:textColor="#2C2C2C"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/reflection_input_bg"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
-                        android:onClick="aichat">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Your reflection..."
-                            android:textSize="14sp"
-                            android:textColor="#888888" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@android:drawable/ic_menu_send"
-                            android:rotation="45" />
-                    </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- Daily Mood Log Card -->
-            <androidx.cardview.widget.CardView
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Daily Mood Log Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#F7F4F1">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#F7F4F1">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Daily Mood Log"
+                        android:textSize="16sp"
+                        android:textColor="#2C2C2C"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⋯"
+                        android:textSize="20sp"
+                        android:textColor="#888888" />
+
+                </LinearLayout>
+
+                <!-- Mood Emojis -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Example Mood Buttons -->
+                    <ImageButton
+                        android:id="@+id/btnHappy"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="happy"
+                        android:src="@drawable/happy"/>
+
+                    <ImageButton
+                        android:id="@+id/btnCalm"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="calm"
+                        android:src="@drawable/calm"/>
+
+                    <ImageButton
+                        android:id="@+id/btnSad"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="sad"
+                        android:src="@drawable/sad"/>
+
+                    <ImageButton
+                        android:id="@+id/btnAngry"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="angry"
+                        android:src="@drawable/angry"/>
+
+                    <ImageButton
+                        android:id="@+id/btnIrritated"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="irritated"
+                        android:src="@drawable/irritated"/>
+
+                    <ImageButton
+                        android:id="@+id/btnAnxious"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="anxious"
+                        android:src="@drawable/anxious"/>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View Mood Board"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#6B9080"
+                    android:onClick="viewMoodBoard"
+                    android:layout_marginTop="8dp"
+                    android:paddingVertical="12dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Hope Tasks Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#F7F4F1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Hope Tasks"
+                        android:textSize="16sp"
+                        android:textColor="#2C2C2C"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/btnAddTask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_input_add"
+                        android:background="@android:color/transparent"
+                        app:tint="#000000"
+                        android:layout_gravity="end"/>
+
+
+                </LinearLayout>
+
+                <!-- Tasks Container -->
+                <LinearLayout
+                    android:id="@+id/tasks_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Sample Task 1 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="16dp">
+                        android:padding="8dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Daily Mood Log"
+                            android:text="💧 Drink water"
                             android:textSize="16sp"
                             android:textColor="#2C2C2C"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical" />
 
-                        <TextView
+                        <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="⋯"
-                            android:textSize="20sp"
-                            android:textColor="#888888" />
+                            android:layout_gravity="center_vertical" />
+
                     </LinearLayout>
 
-                    <!-- Mood Emojis -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="happy"
-                            android:src="@drawable/happy" />
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="calm"
-                            android:src="@drawable/calm" />
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="sad"
-                            android:src="@drawable/sad" />
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="angry"
-                            android:src="@drawable/angry" />
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="irritated"
-                            android:src="@drawable/irritated" />
-
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="anxious"
-                            android:src="@drawable/anxious" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Hope Tasks Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#F7F4F1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
-
+                    <!-- Sample Task 2 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="16dp">
+                        android:padding="8dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Hope Tasks"
+                            android:text="🫁 Breathe in, breathe out"
                             android:textSize="16sp"
                             android:textColor="#2C2C2C"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical" />
 
-                        <ImageButton
-                            android:id="@+id/btnAddTask"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@android:drawable/ic_input_add"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="#000000"
-                            android:layout_gravity="end"
-                            android:clickable="true"
-                            android:focusable="true" />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical" />
 
                     </LinearLayout>
 
-                    <!-- Tasks Container -->
+                    <!-- Sample Task 3 -->
                     <LinearLayout
-                        android:id="@+id/tasks_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:background="?android:attr/selectableItemBackground">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="8dp"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginBottom="8dp">
+                            android:layout_weight="1"
+                            android:text="🔢 Count 100 to 1"
+                            android:textSize="16sp"
+                            android:textColor="#2C2C2C"
+                            android:gravity="center_vertical" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="💧 Drink water"
-                                android:textSize="16sp"
-                                android:textColor="#2C2C2C"
-                                android:gravity="center_vertical" />
-
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <CheckBox
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="8dp"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginBottom="8dp">
+                            android:layout_gravity="center_vertical" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="🫁 Breathe in, breathe out"
-                                android:textSize="16sp"
-                                android:textColor="#2C2C2C"
-                                android:gravity="center_vertical" />
-
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="8dp"
-                            android:background="?android:attr/selectableItemBackground">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="🔢 Count 100 to 1"
-                                android:textSize="16sp"
-                                android:textColor="#2C2C2C"
-                                android:gravity="center_vertical" />
-
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical" />
-                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
 
-    <!-- Bottom Navigation -->
+                <!-- Bottom decoration -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/circle_dot"
+                        android:backgroundTint="@color/dot_light_green" />
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/circle_dot"
+                        android:backgroundTint="#A8D8A8" />
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/circle_dot"
+                        android:backgroundTint="#98C898" />
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/circle_dot"
+                        android:backgroundTint="#88B888" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    </ScrollView>
+<!-- bottom navigation-->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_card"
-        android:layout_marginBottom="8dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
         android:elevation="8dp"
+        android:orientation="horizontal"
         android:paddingVertical="8dp"
-        android:gravity="center">
+        android:layout_marginBottom="-15dp">
 
         <!-- Home Tab -->
         <LinearLayout
@@ -328,23 +421,28 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:onClick="navhome">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="navhome"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/home" />
+                android:src="@drawable/home"
+                android:contentDescription="Home" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Home"
-                android:textSize="10sp"
                 android:textColor="@color/selected"
-                android:layout_marginTop="2dp" />
+                android:textSize="10sp" />
+
         </LinearLayout>
 
-        <!-- Discover -->
+        <!-- Discover Tab -->
         <LinearLayout
             android:id="@+id/navDiscover"
             android:layout_width="0dp"
@@ -352,12 +450,16 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:onClick="navdiscover">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="navdiscover"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/discover" />
+                android:src="@drawable/discover"
+                android:contentDescription="Discover" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -366,9 +468,10 @@
                 android:textSize="10sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="2dp" />
+
         </LinearLayout>
 
-        <!-- Community -->
+        <!-- Community Tab -->
         <LinearLayout
             android:id="@+id/navCommunity"
             android:layout_width="0dp"
@@ -376,12 +479,16 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:onClick="navcommunity">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="navcommunity"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/community" />
+                android:src="@drawable/community"
+                android:contentDescription="Community" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -390,9 +497,10 @@
                 android:textSize="10sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="2dp" />
+
         </LinearLayout>
 
-        <!-- Journal -->
+        <!-- Journal Tab -->
         <LinearLayout
             android:id="@+id/navJournal"
             android:layout_width="0dp"
@@ -400,12 +508,16 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:onClick="navjournal">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="navjournal"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/journal" />
+                android:src="@drawable/journal"
+                android:contentDescription="Journal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -414,9 +526,10 @@
                 android:textSize="10sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="2dp" />
+
         </LinearLayout>
 
-        <!-- Profile -->
+        <!-- Profile Tab (Active) -->
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
@@ -424,12 +537,16 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:onClick="navprofile">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="navprofile"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/profile" />
+                android:src="@drawable/profile"
+                android:contentDescription="Profile" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -439,6 +556,10 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp" />
+
         </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
+
+</RelativeLayout>
